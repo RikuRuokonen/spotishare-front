@@ -1,26 +1,77 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components';
+import SearchSongForm from "./components/SearchSongForm";
+import { sendSong } from "./services/calls";
+import SongQueue from './components/SongQueue'
+import { ClipLoader } from 'react-spinners';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const mockSongs = [
+    {songName: 'Kesä on kreisi', artist: 'Lidl Stigy'},
+    {songName: 'Suomen kesä', artist: 'Lidl Stigy'},
+]
+
+const Notice = styled.div`
+    color: 	#b3b3b3;
+    margin: auto;
+    text-aling: center;
+`
+
+
+
+class App extends React.Component {
+  constructor(props){
+    super()
+      this.state = {
+          songId: null,
+          loading: false,
+          songAddFinished: false,
+          error: false,
+      }
+  }
+
+  handleSongIdChange = (e) =>  {
+      console.log('fire change handler', e.target.value);
+    this.setState({
+        songId: e.target.value,
+    })
+  }
+
+  handleSongSubmit = () => {
+      console.log('submit');
+      sendSong(this.state.songId, this);
+  }
+
+  render(){
+      return (
+          <div className="App">
+            <header className="App-header">
+                <h2>SPOTISHARE</h2>
+                <ClipLoader
+                    sizeUnit={"px"}
+                    size={30}
+                    color={'#1db954'}
+                    loading={this.state.loading}
+                />
+                {this.state.songAddFinished && !this.state.error && (
+                    <Notice>
+                        <span>Kappale lisätty onnistuneesti!</span>
+                    </Notice>
+                )}
+                {this.state.songAddFinished && this.state.error && (
+                    <Notice>
+                        <span>Kappaleen lisääminen epäonnistui. Yritä uudelleen.</span>
+                    </Notice>
+                )}
+            </header>
+              <div className={'content'}>
+                  <SearchSongForm onChange={this.handleSongIdChange} onSubmit={this.handleSongSubmit}/>
+                  <SongQueue songList={mockSongs} />
+              </div>
+          </div>
+      );
+  }
 }
 
 export default App;
