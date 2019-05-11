@@ -32,7 +32,7 @@ class App extends React.Component {
           searchResults: null,
       }
 
-      this.searchSong =  _.debounce(this.doSongSearch, 2000)
+      this.searchSong =  _.debounce(this.doSongSearch, 1000)
   }
 
   componentDidMount(){
