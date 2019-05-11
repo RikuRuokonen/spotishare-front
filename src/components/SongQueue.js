@@ -50,6 +50,7 @@ const QueueContainer = styled.div`
     }
     margin-bottom: 4em;
     table{
+        width: 100%;
         border-collapse: collapse;
     }
     table tr td:first-child,
@@ -72,6 +73,7 @@ const QueueContainer = styled.div`
     
 `
 
+
 const SongQueue = (props) => {
     return(
         <QueueContainer>
@@ -85,6 +87,7 @@ const SongQueue = (props) => {
                 <span className={'song-name'}>{song.name}</span>
             </div>*/}
             <table>
+                <tbody>
                 <tr>
                     <th>Artisti</th>
                     <th>Laulun nimi</th>
@@ -95,6 +98,7 @@ const SongQueue = (props) => {
                     <td>{song.name}</td>
                 </tr>
             ))}
+                </tbody>
             </table>
         </QueueContainer>
     )

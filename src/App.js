@@ -3,9 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components';
 import SearchSongForm from "./components/SearchSongForm";
-import { sendSong, getSongList } from "./services/calls";
+import { sendSong, searchSong, getSongList } from "./services/calls";
 import SongQueue from './components/SongQueue'
+import SearchResults from './components/SearchResults';
 import { ClipLoader } from 'react-spinners';
+import _ from 'lodash';
 
 const mockSongs = [
     {songName: 'Kesä on kreisi', artist: 'Lidl Stigy'},
@@ -27,7 +29,10 @@ class App extends React.Component {
           songAddFinished: false,
           error: false,
           songList: null,
+          searchResults: null,
       }
+
+      this.searchSong =  _.debounce(this.doSongSearch, 2000)
   }
 
   componentDidMount(){
@@ -43,15 +48,26 @@ class App extends React.Component {
   }
 
   handleSongIdChange = (e) =>  {
-      console.log('fire change handler', e.target.value);
-    this.setState({
-        songId: e.target.value,
-    })
+      const searchResults = this.searchSong(e.target.value);
+      this.setState({
+          searchResults,
+      })
   }
 
   handleSongSubmit = () => {
-      console.log('submit');
-      sendSong(this.state.songId, this);
+      sendSong(this.state.selectedSong, this);
+  }
+
+  selectSong = (uri) => {
+      console.log('uri: ', uri)
+      this.setState({
+          selectedSong: uri,
+      })
+  }
+
+  doSongSearch = (value) => {
+      console.log('search')
+      searchSong(value, this);
   }
 
   render(){
@@ -70,13 +86,16 @@ class App extends React.Component {
                         <span>Kappale lisätty onnistuneesti!</span>
                     </Notice>
                 )}
-                {this.state.songAddFinished && this.state.error && (
+                {this.state.error && (
                     <Notice>
-                        <span>Kappaleen lisääminen epäonnistui. Yritä uudelleen.</span>
+                        <span>Jotain meni vikaan. Yritä uudelleen, tai ota yhteyttä asiakaspalveluumme.</span>
                     </Notice>
                 )}
             </header>
               <div className={'content'}>
+                  {this.state.searchResults && this.state.searchResults.length > 0 && (
+                      <SearchResults submitSong={this.selectSong} selectedSong={this.state.selectedSong} results={this.state.searchResults}/>
+                  )}
                   <SearchSongForm onChange={this.handleSongIdChange} onSubmit={this.handleSongSubmit}/>
                   {console.log('state: ', this.state)}
                   {this.state.songList !== null && this.state.songList.length > 0 && (
