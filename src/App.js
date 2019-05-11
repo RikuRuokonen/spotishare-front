@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components';
 import SearchSongForm from "./components/SearchSongForm";
-import { sendSong } from "./services/calls";
+import { sendSong, getSongList } from "./services/calls";
 import SongQueue from './components/SongQueue'
 import { ClipLoader } from 'react-spinners';
 
@@ -16,9 +16,7 @@ const Notice = styled.div`
     color: 	#b3b3b3;
     margin: auto;
     text-aling: center;
-`
-
-
+`;
 
 class App extends React.Component {
   constructor(props){
@@ -28,7 +26,19 @@ class App extends React.Component {
           loading: false,
           songAddFinished: false,
           error: false,
+          songList: null,
       }
+  }
+
+  componentDidMount(){
+      setInterval(
+          () => this.fetchSongList(this),
+          1000
+      );
+  }
+
+  fetchSongList = () => {
+      getSongList(this);
   }
 
   handleSongIdChange = (e) =>  {
@@ -67,7 +77,10 @@ class App extends React.Component {
             </header>
               <div className={'content'}>
                   <SearchSongForm onChange={this.handleSongIdChange} onSubmit={this.handleSongSubmit}/>
-                  <SongQueue songList={mockSongs} />
+                  {console.log('state: ', this.state)}
+                  {this.state.songList !== null && this.state.songList.length > 0 && (
+                      <SongQueue songList={this.state.songList} />
+                  )}
               </div>
           </div>
       );

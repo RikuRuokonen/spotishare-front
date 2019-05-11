@@ -53,8 +53,8 @@ const SongQueue = (props) => {
             </div>
             {props.songList.map((song, key) => (
                 <div className={`song-row ${key === 0 ? 'first-child' : ''}`}>
-                    <span>{song.artist}</span>
-                    <span>{song.songName}</span>
+                    <span>{song.album.artists[0].name}</span>
+                    <span>{song.name}</span>
                 </div>
             ))}
         </QueueContainer>

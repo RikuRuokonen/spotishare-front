@@ -18,11 +18,34 @@ export const sendSong = (songId, that) => {
                 error: false,
                 loading: false,
             })
+            that.fetchSongList();
             console.log(response);
         })
         .catch(function (error) {
             that.setState({
                 songAddFinished: true,
+                error: true,
+                loading: false,
+            })
+            console.log(error);
+        });
+}
+
+export const getSongList = (that) => {
+    return axios.get(api, {
+    })
+        .then(function (response) {
+            that.setState({
+                songList: response.data,
+                songListFetchFinished: true,
+                error: false,
+                loading: false,
+            })
+            console.log(response);
+        })
+        .catch(function (error) {
+            that.setState({
+                songListFetchFinished: true,
                 error: true,
                 loading: false,
             })
