@@ -32,6 +32,11 @@ export const sendSong = (songId, that) => {
 }
 
 export const getSongList = (that) => {
+    that.setState({
+        loading: true,
+        error: false,
+        songListFetchFinished: false,
+    })
     return axios.get(api, {
     })
         .then(function (response) {

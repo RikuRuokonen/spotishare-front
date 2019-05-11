@@ -31,9 +31,10 @@ class App extends React.Component {
   }
 
   componentDidMount(){
+      this.fetchSongList(this);
       setInterval(
           () => this.fetchSongList(this),
-          1000
+          8000
       );
   }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const QueueContainer = styled.div`
-    width: 25em;
+    min-width: 25em;
     min-height: 10em;
     margin-top: 2em;
     background-color: #212121;
@@ -20,43 +20,82 @@ const QueueContainer = styled.div`
         height: 1em;
         padding: 1em 0 1em 0;
         span {
-            min-width: 50%;
             color: #b3b3b3;
-            float: left;
         }
     }
     
     .song-row {
-        width: 100%;
+        text-align: center;
         margin: auto;
-        height: 1em;
-        padding: 1em 0 1em 0;
-        span {
-            min-width: 50%;
-            color: white;
-            float: left;
+        min-height: 1em;
+        padding: 1em;
+        color: white;
+        .artist-name{
+            display: table-cell;
+            height: auto;
+            width:48%;
+            display: inline-block;
+            border: 1px solid red;
+        }
+        .song-name{
+            display: table-cell;
+            width:48%;
+            display: inline-block;
+            border: 1px solid red;
         }
      
     }
     .first-child {
         border-top: 1px solid #535353;
     }
+    margin-bottom: 4em;
+    table{
+        border-collapse: collapse;
+    }
+    table tr td:first-child,
+    table tr th:first-child {
+      border-left: 0;
+    }
+    table tr td:last-child,
+    table tr th:last-child {
+      border-right: 0;
+    }
+    th{
+        color: #b3b3b3;
+        padding: 1em 0 1em 0;
+    }
+    td{
+        color: white;
+        padding: 1em;
+        border: 1px solid #535353;
+    }
+    
 `
 
 const SongQueue = (props) => {
     return(
         <QueueContainer>
             <span className={'title'}>Biisilista</span>
-            <div className={'section-title-row'}>
+          {/*  <div className={'section-title-row'}>
                 <span>Artisti</span>
                 <span className={'last-section'}>Laulun nimi</span>
-            </div>
+            </div>*/}
+           {/* <div className={`song-row ${key === 0 ? 'first-child' : ''}`}>
+                <span className={'artist-name'}>{song.album.artists[0].name}</span>
+                <span className={'song-name'}>{song.name}</span>
+            </div>*/}
+            <table>
+                <tr>
+                    <th>Artisti</th>
+                    <th>Laulun nimi</th>
+                </tr>
             {props.songList.map((song, key) => (
-                <div className={`song-row ${key === 0 ? 'first-child' : ''}`}>
-                    <span>{song.album.artists[0].name}</span>
-                    <span>{song.name}</span>
-                </div>
+                <tr>
+                    <td>{song.album.artists[0].name}</td>
+                    <td>{song.name}</td>
+                </tr>
             ))}
+            </table>
         </QueueContainer>
     )
 }
