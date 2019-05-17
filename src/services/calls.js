@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = 'https://afternoon-bastion-84918.herokuapp.com/api';
-
+const hash = window.location.pathname.slice(1)
 export const sendSong = (songId, that) => {
     console.log('fire', songId)
     that.setState({
@@ -9,7 +9,7 @@ export const sendSong = (songId, that) => {
         error: false,
         songAddFinished: false,
     })
-    return axios.post(`${api}/song`, {
+    return axios.post(`${api}/song/${hash}`, {
         songId,
     })
         .then(function (response) {
@@ -33,7 +33,7 @@ export const sendSong = (songId, that) => {
 
 export const searchSong = (searchQuery, that) => {
     console.log('fire', searchQuery)
-    axios.get(`${api}/search`, {
+    axios.get(`${api}/search/${hash}`, {
         params: {
             searchQuery,
         }
@@ -58,7 +58,7 @@ export const getSongList = (that) => {
         error: false,
         songListFetchFinished: false,
     })
-    return axios.get(`${api}/song`, {
+    return axios.get(`${api}/song/${hash}`, {
     })
         .then(function (response) {
             that.setState({
