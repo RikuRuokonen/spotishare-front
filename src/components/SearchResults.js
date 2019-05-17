@@ -1,5 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
+import classnames from 'classnames'
 
 const SearchResultsContainer = styled.div`
     table tr td:first-child,
@@ -27,8 +28,7 @@ const SearchResultsContainer = styled.div`
 
 
 const SearchResults = (props) => {
-    console.log('sr props: ', props);
-    return(
+    return (
         <SearchResultsContainer>
             <span className={'title'}>Osumat</span>
             {/*  <div className={'section-title-row'}>
@@ -46,7 +46,12 @@ const SearchResults = (props) => {
                     <th>Laulun nimi</th>
                 </tr>
                 {props.results.map((song, key) => (
-                    <tr className={`${song.uri === props.selectedSong? 'selected' : ''}`}>
+                    <tr
+                        key={key}
+                        className={classnames({
+                            'selected': song.uri === props.selectedSong,
+                        })}
+                    >
                         <td>{song.album.artists[0].name}</td>
                         <td onClick={() => props.submitSong(song.uri)}>{song.name}</td>
                     </tr>
@@ -57,4 +62,4 @@ const SearchResults = (props) => {
     )
 }
 
-export default SearchResults;
+export default SearchResults

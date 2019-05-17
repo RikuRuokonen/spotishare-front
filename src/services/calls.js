@@ -1,80 +1,40 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const api = 'https://afternoon-bastion-84918.herokuapp.com/api';
+const api = 'https://afternoon-bastion-84918.herokuapp.com/api'
 const hash = window.location.pathname.slice(1)
-export const sendSong = (songId, that) => {
+
+export const sendSong = (songId) => {
     console.log('fire', songId)
-    that.setState({
-        loading: true,
-        error: false,
-        songAddFinished: false,
-    })
     return axios.post(`${api}/song/${hash}`, {
         songId,
     })
-        .then(function (response) {
-            that.setState({
-                songAddFinished: true,
-                error: false,
-                loading: false,
-            })
-            that.fetchSongList();
-            console.log(response);
+        .then((response) => {
+            console.log(response)
+            return response
         })
-        .catch(function (error) {
-            that.setState({
-                songAddFinished: true,
-                error: true,
-                loading: false,
-            })
-            console.log(error);
-        });
+        .catch((error) => {
+            console.log(error)
+            throw error
+        })
 }
 
-export const searchSong = (searchQuery, that) => {
+export const searchSong = (searchQuery) => {
     console.log('fire', searchQuery)
-    axios.get(`${api}/search/${hash}`, {
+    return axios.get(`${api}/search/${hash}`, {
         params: {
             searchQuery,
-        }
+        },
     })
-        .then(function (response) {
+        .then((response) => {
             console.log('search response: ', response)
-            that.setState({
-                searchResults: response.data.body.tracks.items,
-            })
+            return response.data.body.tracks.items
         })
-        .catch(function (error) {
-            that.setState({
-                error: true,
-            })
-        });
 }
 
 
-export const getSongList = (that) => {
-    that.setState({
-        loading: true,
-        error: false,
-        songListFetchFinished: false,
+export const getSongList = () => axios.get(`${api}/song/${hash}`)
+    .then((response) => {
+        console.log(response)
+        return response.data
     })
-    return axios.get(`${api}/song/${hash}`, {
-    })
-        .then(function (response) {
-            that.setState({
-                songList: response.data,
-                songListFetchFinished: true,
-                error: false,
-                loading: false,
-            })
-            console.log(response);
-        })
-        .catch(function (error) {
-            that.setState({
-                songListFetchFinished: true,
-                error: true,
-                loading: false,
-            })
-            console.log(error);
-        });
-}
+    .catch((error) => console.log(error))

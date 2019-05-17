@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 const QueueContainer = styled.div`
     min-width: 25em;
@@ -75,14 +75,14 @@ const QueueContainer = styled.div`
 
 
 const SongQueue = (props) => {
-    return(
+    return (
         <QueueContainer>
             <span className={'title'}>Biisilista</span>
-          {/*  <div className={'section-title-row'}>
+            {/*  <div className={'section-title-row'}>
                 <span>Artisti</span>
                 <span className={'last-section'}>Laulun nimi</span>
             </div>*/}
-           {/* <div className={`song-row ${key === 0 ? 'first-child' : ''}`}>
+            {/* <div className={`song-row ${key === 0 ? 'first-child' : ''}`}>
                 <span className={'artist-name'}>{song.album.artists[0].name}</span>
                 <span className={'song-name'}>{song.name}</span>
             </div>*/}
@@ -92,16 +92,16 @@ const SongQueue = (props) => {
                     <th>Artisti</th>
                     <th>Laulun nimi</th>
                 </tr>
-            {props.songList.map((song, key) => (
-                <tr>
-                    <td>{song.album.artists[0].name}</td>
-                    <td>{song.name}</td>
-                </tr>
-            ))}
+                {props.songList.map((song, key) => (
+                    <tr key={key}>
+                        <td>{song.album.artists[0].name}</td>
+                        <td>{song.name}</td>
+                    </tr>
+                ))}
                 </tbody>
             </table>
         </QueueContainer>
     )
 }
 
-export default SongQueue;
+export default SongQueue

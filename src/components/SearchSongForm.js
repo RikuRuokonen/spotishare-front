@@ -1,9 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
+import React from 'react'
+import styled from 'styled-components'
 
-const FormContainer = styled.div `
+const FormContainer = styled.div`
     background-color: #121212
     width: 20em;
     //border: 1px solid red;
@@ -35,18 +33,16 @@ const FormContainer = styled.div `
     }
 `
 
-const SearchSongForm = (props) => {
-    return(
-        <FormContainer>
-            <span className={'title'}>Lisää biisi id:llä</span>
-            <div className={'input-container'}>
-                <input name={'song'} onChange={props.onChange}></input>
-            </div>
-            <button onClick={props.onSubmit}>
-                Lisää biisi
-            </button>
-        </FormContainer>
-    )
-}
+const SearchSongForm = ({ onChange, onSubmit }) => (
+    <FormContainer>
+        <span className="title">Hae biisiä</span>
+        <div className="input-container">
+            <input name="song" onChange={onChange} />
+        </div>
+        <button onClick={onSubmit}>
+            Lisää biisi
+        </button>
+    </FormContainer>
+)
 
-export default SearchSongForm;
+export default SearchSongForm
