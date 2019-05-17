@@ -106,7 +106,9 @@ class App extends React.Component {
             })
     }
 
-    searchSong = throttle(this.doSongSearch, 100)
+    searchSong = throttle(this.doSongSearch, 100, {
+        trailing: true,
+    })
 
     render() {
         const { error, songAddFinished, loading, searchResults, selectedSong, songList } = this.state
