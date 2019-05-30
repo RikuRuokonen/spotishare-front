@@ -1,18 +1,10 @@
 import React from 'react'
-import './App.css'
-import styled from 'styled-components'
-import SearchSongForm from './components/SearchSongForm'
-import { sendSong, searchSong, getSongList } from './services/calls'
+import { sendSong, getSongList } from './services/calls'
 import SongQueue from './components/SongQueue'
-import SearchResults from './components/SearchResults'
 import { ClipLoader } from 'react-spinners'
-import throttle from 'lodash/throttle'
+import SearchInput from './components/SearchInput'
 
-const Notice = styled.div`
-    color: 	#b3b3b3;
-    margin: auto;
-    text-aling: center;
-`
+import styles from './App.scss'
 
 class App extends React.Component {
     state = {
@@ -56,17 +48,6 @@ class App extends React.Component {
             })
     }
 
-    handleSongIdChange = (e) => {
-        const query = e.target.value
-        if (!query) {
-            this.setState({
-                searchResults: [],
-            })
-        } else {
-            this.searchSong(query)
-        }
-    }
-
     handleSongSubmit = () => {
         this.setState({
             loading: true,
@@ -91,24 +72,7 @@ class App extends React.Component {
         })
     }
 
-    doSongSearch = (value) => {
-        console.log('search')
-        return searchSong(value)
-            .then((items) => {
-                this.setState({
-                    searchResults: items,
-                })
-            })
-            .catch(() => {
-                this.setState({
-                    error: true,
-                })
-            })
-    }
 
-    searchSong = throttle(this.doSongSearch, 100, {
-        trailing: true,
-    })
 
     render() {
         const { error, songAddFinished, loading, searchResults, selectedSong, songList } = this.state
@@ -122,28 +86,28 @@ class App extends React.Component {
                         color={'#1db954'}
                         loading={loading}
                     />
-                    {songAddFinished && !error && (
-                        <Notice>
-                            <span>Kappale lisätty onnistuneesti!</span>
-                        </Notice>
-                    )}
-                    {error && (
-                        <Notice>
-                            <span>Jotain meni vikaan. Yritä uudelleen, tai ota yhteyttä asiakaspalveluumme.</span>
-                        </Notice>
-                    )}
+                    <div className={styles.notice}>
+                        {(songAddFinished && !error && (
+                            "Kappale lisätty onnistuneesti!"
+                        )) || (error && (
+                            "Jotain meni vikaan. Yritä uudelleen, tai ota yhteyttä asiakaspalveluumme."
+                        ))}
+                    </div>
                 </header>
                 <div className={'content'}>
-                    {searchResults && searchResults.length > 0 && (
-                        <SearchResults
-                            submitSong={this.selectSong}
-                            selectedSong={selectedSong}
-                            results={searchResults}
-                        />
-                    )}
-                    <SearchSongForm
-                        onChange={this.handleSongIdChange}
-                        onSubmit={this.handleSongSubmit}
+                    {/*{searchResults && searchResults.length > 0 && (*/}
+                    {/*    <SearchResults*/}
+                    {/*        submitSong={this.selectSong}*/}
+                    {/*        selectedSong={selectedSong}*/}
+                    {/*        results={searchResults}*/}
+                    {/*    />*/}
+                    {/*)}*/}
+                    {/*<SearchSongForm*/}
+                    {/*    onChange={this.handleSongIdChange}*/}
+                    {/*    onSubmit={this.handleSongSubmit}*/}
+                    {/*/>*/}
+                    <SearchInput
+                        onSelect={this.handleSongSubmit}
                     />
                     {songList && (
                         <SongQueue songList={songList} />
