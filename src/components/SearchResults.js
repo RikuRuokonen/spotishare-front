@@ -5,11 +5,11 @@ import classnames from 'classnames'
 const SearchResultsContainer = styled.div`
     table tr td:first-child,
     table tr th:first-child {
-      border-left: 0;
+      border-left: 1;
     }
     table tr td:last-child,
     table tr th:last-child {
-      border-right: 0;
+      border-right: 1;
     }
     th{
         color: #b3b3b3;

@@ -48,7 +48,7 @@ const QueueContainer = styled.div`
     .first-child {
         border-top: 1px solid #535353;
     }
-    margin-bottom: 4em;
+    margin-bottom: 2em;
     table{
         width: 100%;
         border-collapse: collapse;

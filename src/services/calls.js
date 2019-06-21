@@ -27,14 +27,18 @@ export const searchSong = (searchQuery) => {
     })
         .then((response) => {
             console.log('search response: ', response)
-            return response.data.body.tracks.items
+            return response.data.body.tracks.items.slice(0,6)
         })
 }
 
-
 export const getSongList = () => axios.get(`${api}/song/${hash}`)
     .then((response) => {
-        console.log(response)
         return response.data
     })
     .catch((error) => console.log(error))
+
+export const getCurrentSong = () =>  axios.get(`${api}/song/current/${hash}`)
+    .then((response) => {
+        return response.data
+    })
+    .catch(err => console.log(err))

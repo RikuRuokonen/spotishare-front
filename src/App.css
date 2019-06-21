@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto+Slab');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,600,700');
 
+h4, p {
+  margin: 0;
+}
 
  body{
    background-color: #121212;
@@ -30,6 +33,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 95%;
+  margin: auto;
 }
 
 .App-link {
