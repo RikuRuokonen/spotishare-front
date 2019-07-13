@@ -8,13 +8,16 @@ import { createMuiTheme } from '@material-ui/core'
 
 const theme = createMuiTheme({
   palette: {
+    text: {
+      secondary: '#FFFFFF'
+    },
     primary: {
       main: '#1ED760',
-      contrastText: '#FFFFFF'
+      contrastText: '#FFFFFF',
     },
     secondary: {
       main: '#FFFFFF',
-      contrastText: '#000000'
+      contrastText: '#000000',
     },
   },
   overrides: {
@@ -25,8 +28,8 @@ const theme = createMuiTheme({
           backgroundColor: 'rgba(255, 255, 255, 0.05)',
         },
       },
-    }
-  }
+    },
+  },
 })
 
 const Root = () => (
