@@ -1,10 +1,10 @@
 import React from 'react'
-import './App.css'
+import './Session.css'
 import styled from 'styled-components'
-import SearchSongForm from './components/SearchSongForm'
-import { sendSong, searchSong, getSongList, getCurrentSong } from './services/calls'
-import SongQueue from './components/SongQueue'
-import SearchResults from './components/SearchResults'
+import SearchSongForm from './SearchSongForm'
+import { sendSong, searchSong, getSongList, getCurrentSong } from '../services/calls'
+import SongQueue from './SongQueue'
+import SearchResults from './SearchResults'
 import { ClipLoader } from 'react-spinners'
 import throttle from 'lodash/throttle'
 
@@ -43,7 +43,7 @@ ProgressBar.defaultProps = {
     progress: 0
 }
 
-class App extends React.Component {
+class Session extends React.Component {
     state = {
         songId: null,
         loading: false,
@@ -230,4 +230,4 @@ class App extends React.Component {
     }
 }
 
-export default App
+export default Session
