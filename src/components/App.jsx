@@ -73,7 +73,7 @@ const App = () => {
             <Grid item>
               <Grid container spacing={6} direction="column" alignItems="center">
                 <Grid item>
-                  Tervetuloa Spotishareen!
+                  Welcome to Spotishare!
                 </Grid>
                 <Grid item>
                   <Grid container justify="space-around">
@@ -83,7 +83,7 @@ const App = () => {
                           color="primary"
                           label="Session id"
                           value={id}
-                          placeholder="Kirjoita session id"
+                          placeholder="Type session id"
                           onChange={(e) => setId(e.target.value)}
                           margin="none"
                         />
@@ -99,11 +99,11 @@ const App = () => {
                           type="submit"
                           form="sessionForm"
                         >
-                          Liity sessioon
+                          Join into a session
                         </Button>
                       ) : (
                         <Button color="primary" onClick={onNewSessionClicked}>
-                          Luo uusi sessio
+                          Create a new session
                         </Button>
                       )}
                     </Grid>
