@@ -6,7 +6,7 @@ const transport = axios
     crossDomain: true
   })
 
-const api = 'https://afternoon-bastion-84918.herokuapp.com/api'
+const api = `${process.env.REACT_APP_SERVER}/api`
 
 export const sendSong = (hash, songId) => {
   return transport

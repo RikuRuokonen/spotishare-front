@@ -50,6 +50,10 @@ const App = ({ history }) => {
     e.preventDefault()
     console.log(id)
   }
+  const onLoginClicked = () => {
+    window.location.href = `${process.env.REACT_APP_SERVER}/login`;
+
+  }
   const onNewSessionClicked = () => {
     console.log('new session')
     return createSession()
@@ -111,7 +115,11 @@ const App = ({ history }) => {
                         </Button>
                         )}
                     </Grid>
+
                   </Grid>
+                  <Button color="primary" onClick={onLoginClicked}>
+                    Login
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>
