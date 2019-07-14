@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import withStyles from '@material-ui/styles/withStyles'
 import { Button, Grid, Container, InputBase } from '@material-ui/core'
+import { createSession } from '../services/calls'
 
 const IdInput = withStyles(theme => ({
   root: {
@@ -42,7 +44,7 @@ const Logo = () => (
   </svg>
 )
 
-const App = () => {
+const App = ({ history }) => {
   const [id, setId] = useState('')
   const onSubmit = (e) => {
     e.preventDefault()
@@ -50,6 +52,8 @@ const App = () => {
   }
   const onNewSessionClicked = () => {
     console.log('new session')
+    return createSession()
+      .then(response => response.hash && history.push(`/session/${response.hash}`))
   }
   return (
     <Container
@@ -102,10 +106,10 @@ const App = () => {
                           Join into a session
                         </Button>
                       ) : (
-                        <Button color="primary" onClick={onNewSessionClicked}>
-                          Create a new session
+                          <Button color="primary" onClick={onNewSessionClicked}>
+                            Create a new session
                         </Button>
-                      )}
+                        )}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -118,4 +122,4 @@ const App = () => {
   )
 }
 
-export default App
+export default withRouter(App)

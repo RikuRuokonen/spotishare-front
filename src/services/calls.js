@@ -1,44 +1,66 @@
 import axios from 'axios'
 
+const transport = axios
+  .create({
+    withCredentials: true,
+    crossDomain: true
+  })
+
 const api = 'https://afternoon-bastion-84918.herokuapp.com/api'
-const hash = window.location.pathname.slice(1)
 
-export const sendSong = (songId) => {
-    console.log('fire', songId)
-    return axios.post(`${api}/song/${hash}`, {
-        songId,
+export const sendSong = (hash, songId) => {
+  return transport
+    .post(`${api}/song/${hash}`, {
+      songId,
     })
-        .then((response) => {
-            console.log(response)
-            return response
-        })
-        .catch((error) => {
-            console.log(error)
-            throw error
-        })
+    .then(response => {
+      console.log(response)
+      return response
+    })
+    .catch(error => {
+      console.log(error)
+      throw error
+    })
 }
 
-export const searchSong = (searchQuery) => {
-    console.log('fire', searchQuery)
-    return axios.get(`${api}/search/${hash}`, {
-        params: {
-            searchQuery,
-        },
+export const searchSong = (hash, searchQuery) => {
+  console.log('fire', searchQuery)
+  return transport
+    .get(`${api}/search/${hash}`, {
+      params: {
+        searchQuery
+      }
     })
-        .then((response) => {
-            console.log('search response: ', response)
-            return response.data.body.tracks.items.slice(0,6)
-        })
+    .then(response => {
+      console.log('search response: ', response)
+      return response.data.body.tracks.items.slice(0, 6)
+    })
 }
 
-export const getSongList = () => axios.get(`${api}/song/${hash}`)
-    .then((response) => {
-        return response.data
+export const getSongList = (hash) =>
+  transport
+    .get(`${api}/song/${hash}`)
+    .then(response => {
+      return response.data
     })
-    .catch((error) => console.log(error))
+    .catch(error => console.log(error))
 
-export const getCurrentSong = () =>  axios.get(`${api}/song/current/${hash}`)
-    .then((response) => {
-        return response.data
+export const getCurrentSong = (hash) =>
+  transport
+    .get(`${api}/song/current/${hash}`)
+    .then(response => {
+      return response.data
     })
     .catch(err => console.log(err))
+
+export const createSession = () =>
+  transport
+    .post(`${api}/session`)
+    .then(response => {
+      console.log(response.data)
+      return response.data
+    })
+    .catch(err => {
+      console.log(err)
+      throw (err)
+    })

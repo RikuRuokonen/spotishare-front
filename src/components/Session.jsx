@@ -44,30 +44,33 @@ ProgressBar.defaultProps = {
 }
 
 class Session extends React.Component {
-    state = {
-        songId: null,
-        loading: false,
-        songAddFinished: false,
-        error: false,
-        songList: null,
-        searchResults: null,
-        currentSong: null,
-        currentDuration: 1,
-        currentProgress: null,
-        selectedSong: null
+    constructor(props) {
+        super(props)
+        this.state = {
+            songId: null,
+            loading: false,
+            songAddFinished: false,
+            error: false,
+            songList: null,
+            searchResults: null,
+            currentSong: null,
+            currentDuration: 1,
+            currentProgress: null,
+            selectedSong: null,
+        }
     }
 
     componentDidMount() {
-        this.fetchSongList()
         this.fetchCurrentSong()
-        setInterval(
-            () => {
-                this.fetchSongList()
-                this.fetchCurrentSong()
-                console.log(this.state)
-            },
-            1000,
-        )
+            .then(this.fetchSongList())
+            .then(setInterval(
+                () => {
+                    this.fetchSongList()
+                    this.fetchCurrentSong()
+                    console.log(this.state)
+                },
+                1000,
+            ))
     }
 
     fetchSongList = () => {
@@ -76,7 +79,7 @@ class Session extends React.Component {
             error: false,
             songListFetchFinished: false,
         })
-        getSongList()
+        getSongList(this.props.location.pathname.split('/')[2])
             .then((data) => {
                 this.setState({
                     songList: data,
@@ -100,7 +103,7 @@ class Session extends React.Component {
             error: false,
             currentSongFetchFinished: false,
         })
-        getCurrentSong()
+        return getCurrentSong(this.props.location.pathname.split('/')[2])
             .then((data) => {
                 this.setState({
                     currentSong: data.song,
@@ -138,7 +141,7 @@ class Session extends React.Component {
             songAddFinished: false,
             searchResults: [],
         })
-        return sendSong(this.state.selectedSong)
+        return sendSong(this.props.location.pathname.split('/')[2], this.state.selectedSong)
             .then(() => {
                 this.setState({
                     songAddFinished: true,
@@ -158,7 +161,7 @@ class Session extends React.Component {
 
     doSongSearch = (value) => {
         console.log('search')
-        return searchSong(value)
+        return searchSong(this.props.location.pathname.split('/')[2], value)
             .then((items) => {
                 this.setState({
                     searchResults: items,
