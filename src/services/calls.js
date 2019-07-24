@@ -1,44 +1,22 @@
 import axios from 'axios'
 
 const api = 'https://afternoon-bastion-84918.herokuapp.com/api'
-const hash = window.location.pathname.slice(1)
 
-export const sendSong = (songId) => {
-    console.log('fire', songId)
-    return axios.post(`${api}/song/${hash}`, {
-        songId,
-    })
-        .then((response) => {
-            console.log(response)
-            return response
-        })
-        .catch((error) => {
-            console.log(error)
-            throw error
-        })
-}
+export const sendSong = (songId) => axios.post(`${api}/song/`, {
+    songId,
+})
 
 export const searchSong = (searchQuery) => {
-    console.log('fire', searchQuery)
-    return axios.get(`${api}/search/${hash}`, {
+    return axios.get(`${api}/search/`, {
         params: {
             searchQuery,
         },
     })
-        .then((response) => {
-            console.log('search response: ', response)
-            return response.data.body.tracks.items.slice(0,6)
-        })
+        .then((response) => response.data.body.tracks.items.slice(0,6))
 }
 
-export const getSongList = () => axios.get(`${api}/song/${hash}`)
-    .then((response) => {
-        return response.data
-    })
-    .catch((error) => console.log(error))
+export const getSongList = () => axios.get(`${api}/song/`)
+    .then(({ data }) => data)
 
-export const getCurrentSong = () =>  axios.get(`${api}/song/current/${hash}`)
-    .then((response) => {
-        return response.data
-    })
-    .catch(err => console.log(err))
+export const getCurrentSong = () =>  axios.get(`${api}/song/current/`)
+    .then(({ data }) => data)

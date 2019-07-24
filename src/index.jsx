@@ -1,41 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import SpotishareRouter from './components/Router'
+import './index.scss'
+import SpotishareRouter from './components/SpotishareRouter'
 import * as serviceWorker from './serviceWorker'
-import { ThemeProvider } from '@material-ui/styles'
-import { createMuiTheme } from '@material-ui/core'
-
-const theme = createMuiTheme({
-  palette: {
-    text: {
-      secondary: '#FFFFFF'
-    },
-    primary: {
-      main: '#1ED760',
-      contrastText: '#FFFFFF',
-    },
-    secondary: {
-      main: '#FFFFFF',
-      contrastText: '#000000',
-    },
-  },
-  overrides: {
-    MuiButton: {
-      root: {
-        color: '#FFFFFF',
-        '&:hover': {
-          backgroundColor: 'rgba(255, 255, 255, 0.05)',
-        },
-      },
-    },
-  },
-})
 
 const Root = () => (
-  <ThemeProvider theme={theme}>
-    <SpotishareRouter />
-  </ThemeProvider>
+  <SpotishareRouter />
 )
 
 ReactDOM.render(<Root />, document.getElementById('root'))
