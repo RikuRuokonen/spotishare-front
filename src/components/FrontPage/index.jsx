@@ -8,13 +8,14 @@ import { Link } from 'react-router-dom'
 import styles from './frontPage.module.scss'
 import SessionContext from '../../sessionContext'
 import CurrentSessionContainer from './CurrentSessionContainer'
+import StartNewSessionButton from './StartNewSessionButton'
 
 
 const FrontPage = () => {
   const { session } = useContext(SessionContext)
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar backButton={false} />
       <Container className={styles.frontPageContainer}>
         <div className={styles.titleContainer}>
           <h1>Start playing</h1>
@@ -31,11 +32,7 @@ const FrontPage = () => {
             <SessionHashInput />
           </div>
           <div className={classNames(styles.section, styles.newSessionButtonContainer)}>
-            <Link>
-              <button className={styles.newSessionButton}>
-                Start a new session
-              </button>
-            </Link>
+            <StartNewSessionButton />
           </div>
         </div>
       </Container>

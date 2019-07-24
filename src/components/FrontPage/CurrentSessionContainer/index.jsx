@@ -1,9 +1,10 @@
 import React from 'react'
 import styles from '../currentSessionContainer.module.scss'
 import ArrowIcon from '../../../icons/ArrowIcon'
+import { Link } from 'react-router-dom'
 
 const CurrentSessionContainer = ({ session }) => (
-  <div className={styles.currentSession}>
+  <Link className={styles.currentSession} to="#">
     <div className={styles.currentSessionImage}>
       <img src={session.imageUrl} />
     </div>
@@ -16,9 +17,11 @@ const CurrentSessionContainer = ({ session }) => (
       </p>
     </div>
     <div className={styles.iconContainer}>
-      <ArrowIcon className={styles.icon} />
+      <button className={styles.button}>
+        <ArrowIcon className={styles.icon} />
+      </button>
     </div>
-  </div>
+  </Link>
 )
 
 export default CurrentSessionContainer
